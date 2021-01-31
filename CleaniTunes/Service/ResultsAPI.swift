@@ -8,7 +8,7 @@
 import Foundation
 
 class ResultsAPI: ResultsStoreProtocol {
-    func fetchResults(request: SearchCriteria.Something.Request, completionHandler: @escaping ([Result], ResultsStoreError?) -> Void) {
+    func fetchResults(request: SearchCriteria.GetResults.Request, completionHandler: @escaping ([Result], ResultsStoreError?) -> Void) {
         let dispatchGroup = DispatchGroup()
         var result = [Result]()
         var resultError: ResultsStoreError?
