@@ -8,17 +8,11 @@
 import Foundation
 @testable import CleaniTunes
 
-class MockSearchCriteriaViewController: SearchCriteriaDisplayLogic {
-    var viewModel: SearchCriteria.GetResults.ViewModel!
+class MockSearchCriteriaViewController: SearchCriteriaViewController {
+    var error: String!
     
-    func navigateToListing(viewModel: SearchCriteria.GetResults.ViewModel) {
-        self.viewModel = viewModel
-        searchCriteriaExpectation.fulfill()
-    }
-    
-    func showNoDataError() {
-    }
-    
-    func presentError(error: String) {
+    override func presentError(error: String) {
+        self.error = error
+        searchCriteriaErrorExpectation.fulfill()
     }
 }

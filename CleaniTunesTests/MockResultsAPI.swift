@@ -9,24 +9,31 @@ import Foundation
 @testable import CleaniTunes
 
 class MockResultAPI: ResultsStoreProtocol {
-    func fetchResults(request: SearchCriteria.GetResults.Request, completionHandler: @escaping ([Result], ResultsStoreError?) -> Void) {
-        let filename = "MockResults.JSON"
+    var filename: String!
+    
+    func fetchResults(request: SearchCriteria.GetResults.Request, completionHandler: @escaping ([Result]?, ResultsStoreError?) -> Void) {
         let data: Data
         
         guard let file = Bundle(for: type(of: self)).url(forResource: filename, withExtension: nil)
         else {
-            fatalError("Couldn't find \(filename) in main bundle.")
+            completionHandler(nil, ResultsStoreError.cannotFetch)
+            return
         }
         
         do {
             data = try Data(contentsOf: file)
         } catch {
-            fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+            completionHandler(nil, ResultsStoreError.cannotFetch)
+            return
         }
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        let results = try! decoder.decode(BaseResponse<Result>.self, from: data)
-        completionHandler(results.results!, nil)
+        let results = try? decoder.decode(BaseResponse<Result>.self, from: data)
+        if let results = results?.results {
+            completionHandler(results, nil)
+        }else{
+            completionHandler(nil, ResultsStoreError.cannotFetch)
+        }
     }
 }

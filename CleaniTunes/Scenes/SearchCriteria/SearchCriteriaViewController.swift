@@ -32,25 +32,11 @@ class SearchCriteriaViewController: UIViewController, SearchCriteriaDisplayLogic
     var router: (NSObjectProtocol & SearchCriteriaRoutingLogic & SearchCriteriaDataPassing)?
     var selectedMediaTypes: [(displayedName: String, name: String)] = []
     var tagCollectionView: TTGTextTagCollectionView?
-    // MARK: Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
     
     // MARK: Setup
     
-    private func setup() {
+    func setup(presenter: SearchCriteriaPresenter, interactor: SearchCriteriaInteractor, router: SearchCriteriaRouter) {
         let viewController = self
-        let presenter = SearchCriteriaPresenter(viewController: self)
-        let interactor = SearchCriteriaInteractor(presenter: presenter)
-        let router = SearchCriteriaRouter()
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -85,6 +71,10 @@ class SearchCriteriaViewController: UIViewController, SearchCriteriaDisplayLogic
     }
     
     @IBAction func buttonSubmitDidTapped(_ sender: Any) {
+        submit()
+    }
+    
+    func submit() {
         if textFieldTerm.text?.trimmingCharacters(in: .whitespaces).isEmpty == true {
             showValidationAlert(message: "Please enter term to search")
         } else {
@@ -104,18 +94,18 @@ class SearchCriteriaViewController: UIViewController, SearchCriteriaDisplayLogic
     }
     
     func showNoDataError() {
-        activityIndicator.stopAnimating()
+        activityIndicator?.stopAnimating()
         showValidationAlert(message: "there is no Data for your search")
     }
     
     func presentError(error: String) {
-        activityIndicator.stopAnimating()
+        activityIndicator?.stopAnimating()
         showValidationAlert(message: error)
     }
     
     func startAnimating() {
-        self.activityIndicator.isHidden = false
-        self.activityIndicator.startAnimating()
+        self.activityIndicator?.isHidden = false
+        self.activityIndicator?.startAnimating()
     }
     
     func fetchResult(term: String, entity: [String]) {
@@ -147,7 +137,7 @@ class SearchCriteriaViewController: UIViewController, SearchCriteriaDisplayLogic
     }
     
     func navigateToListing(viewModel: SearchCriteria.GetResults.ViewModel) {
-        activityIndicator.stopAnimating()
+        activityIndicator?.stopAnimating()
         router?.navigateToResultList(result: viewModel.results)
     }
 }

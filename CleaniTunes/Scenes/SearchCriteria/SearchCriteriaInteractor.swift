@@ -37,12 +37,14 @@ class SearchCriteriaInteractor: SearchCriteriaBusinessLogic, SearchCriteriaDataS
             if let error = error {
                 self.presenter.presentError(error: error.message)
             } else {
-                if results.isEmpty {
-                    self.presenter.presentNoData()
-                } else {
-                    self.results = results
-                    let response = SearchCriteria.GetResults.Response(results: results)
-                    self.presenter.presentResultsList(response: response)
+                if let results = results {
+                    if results.isEmpty {
+                        self.presenter.presentNoData()
+                    } else {
+                        self.results = results
+                        let response = SearchCriteria.GetResults.Response(results: results)
+                        self.presenter.presentResultsList(response: response)
+                    }
                 }
             }
         })

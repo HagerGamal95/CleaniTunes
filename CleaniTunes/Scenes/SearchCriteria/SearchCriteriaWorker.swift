@@ -19,7 +19,7 @@ class SearchCriteriaWorker {
         self.resultsStore = resultsStore
     }
     
-    func fetchResults(request: SearchCriteria.GetResults.Request, completionHandler: @escaping ([Result], ResultsStoreError?) -> Void) {
+    func fetchResults(request: SearchCriteria.GetResults.Request, completionHandler: @escaping ([Result]?, ResultsStoreError?) -> Void) {
         resultsStore.fetchResults(request: request) { (results, error) in
             DispatchQueue.main.async {
                 completionHandler(results, error)
@@ -27,9 +27,10 @@ class SearchCriteriaWorker {
         }
     }
 }
+
 protocol ResultsStoreProtocol {
     
-    func fetchResults(request: SearchCriteria.GetResults.Request, completionHandler: @escaping ([Result], ResultsStoreError?) -> Void)
+    func fetchResults(request: SearchCriteria.GetResults.Request, completionHandler: @escaping ([Result]?, ResultsStoreError?) -> Void)
 }
 
 enum ResultsStoreError: Equatable, Error {
