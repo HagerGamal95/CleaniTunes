@@ -1,0 +1,30 @@
+PODS:
+  - Alamofire (4.8.2)
+  - IQKeyboardManagerSwift (6.5.6)
+  - Kingfisher (5.15.8):
+    - Kingfisher/Core (= 5.15.8)
+  - Kingfisher/Core (5.15.8)
+  - TTGTagCollectionView (1.11.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.8.2)
+  - IQKeyboardManagerSwift
+  - Kingfisher (~> 5.13)
+  - TTGTagCollectionView
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - TTGTagCollectionView
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
+  TTGTagCollectionView: 86fcbfa6a7493c9e860b01c2e693cffc8acf6de1
+
+PODFILE CHECKSUM: 37531ba0d4f400328967ee5e79e2b2872388a7f4
+
+COCOAPODS: 1.10.0
