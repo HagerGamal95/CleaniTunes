@@ -33,7 +33,7 @@ class MediaTypeSelectionInteractor: MediaTypeSelectionBusinessLogic, MediaTypeSe
     
     func getMediaTypes() {
         
-        //update selection for selectedMediaTypes from previous screen
+        // update selection for selectedMediaTypes from previous screen
         for selectedMediaType in selectedMediaTypes {
             if let index = mediaTypes.firstIndex(where: { (mediaType) -> Bool in
                 mediaType.displayedTitle == selectedMediaType
