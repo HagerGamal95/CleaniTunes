@@ -49,7 +49,7 @@
                                 <rect key="frame" x="20" y="404" width="374" height="121"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKZ-v0-6Vv">
-                                        <rect key="frame" x="0.0" y="0.0" width="307" height="121"/>
+                                        <rect key="frame" x="0.0" y="5" width="307" height="111"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
@@ -57,9 +57,9 @@
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="3CB-ON-MtQ"/>
-                                    <constraint firstAttribute="bottom" secondItem="qKZ-v0-6Vv" secondAttribute="bottom" id="G13-sl-wxU"/>
+                                    <constraint firstAttribute="bottom" secondItem="qKZ-v0-6Vv" secondAttribute="bottom" constant="5" id="G13-sl-wxU"/>
                                     <constraint firstItem="qKZ-v0-6Vv" firstAttribute="leading" secondItem="7pj-1o-W9w" secondAttribute="leading" id="f7g-P1-LuN"/>
-                                    <constraint firstItem="qKZ-v0-6Vv" firstAttribute="top" secondItem="7pj-1o-W9w" secondAttribute="top" id="uqM-m1-nG8"/>
+                                    <constraint firstItem="qKZ-v0-6Vv" firstAttribute="top" secondItem="7pj-1o-W9w" secondAttribute="top" constant="5" id="uqM-m1-nG8"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="n0K-Bd-tQr" appends="YES" id="nl1-Vl-90l"/>
