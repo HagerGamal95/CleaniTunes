@@ -27,8 +27,8 @@ search iTunes app using (VIP, Swift)
 
 <table align="center">
   <tr>
-    <td>Gride</td>
-     <td>List</td>
+    <td align="center">Gride</td>
+     <td align="center">List</td>
   </tr>
   <tr>
     <td align="center"><img src="https://github.com/HagerGamal95/CleaniTunes/blob/main/images/GridView.png" alt="Categories" title="Kingfisher" width="300"/></td>
