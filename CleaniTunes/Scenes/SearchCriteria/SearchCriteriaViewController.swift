@@ -16,6 +16,7 @@ protocol SearchCriteriaDisplayLogic: class {
     func navigateToListing(viewModel: SearchCriteria.GetResults.ViewModel)
     func showNoDataError()
     func presentError(error: String)
+    func fetchResult(term: String, entity: [String])
 }
 
 class SearchCriteriaViewController: UIViewController, SearchCriteriaDisplayLogic, MediaTypeSelectionDelegate {
@@ -45,45 +46,22 @@ class SearchCriteriaViewController: UIViewController, SearchCriteriaDisplayLogic
         router.dataStore = interactor
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-    
     // MARK: View lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        
     }
     
     @IBAction func buttonSubmitDidTapped(_ sender: Any) {
-        submit()
+        submit(input: textFieldTerm.text, selectedMediaTypes: selectedMediaTypes)
     }
     
-    func submit() {
-        if textFieldTerm.text?.trimmingCharacters(in: .whitespaces).isEmpty == true {
-            showValidationAlert(message: "Please enter term to search")
-        } else {
-            if  selectedMediaTypes.isEmpty == true {
-                showValidationAlert(message: "Please enter media type to search")
-            } else {
-                fetchResult(term: textFieldTerm.text ?? "", entity: selectedMediaTypes.map { $0.name })
-            }
-        }
+    func submit(input: String?, selectedMediaTypes: [(displayedName: String, name: String)]) {
+        interactor?.validate(input: input, selectedMediaTypes: selectedMediaTypes)
     }
     
     func showValidationAlert(message: String) {

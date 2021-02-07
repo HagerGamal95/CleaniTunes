@@ -43,7 +43,9 @@ class ResultListingPresenter: ResultListingPresentationLogic {
         let dictionaryResult = Dictionary(grouping: resultArray) { (result) in
             return result.wrapperType
         }
-        for key in dictionaryResult.keys {
+        
+        let keys = dictionaryResult.keys.sorted { $0.displayType > $1.displayType }
+        for key in keys {
             if let element = dictionaryResult[key] {
                 groupedResult.append(element)
             }

@@ -16,6 +16,7 @@ protocol SearchCriteriaPresentationLogic {
     func presentResultsList(response: SearchCriteria.GetResults.Response)
     func presentNoData()
     func presentError(error: String)
+    func fetchResult(term: String, entity: [String])
 }
 
 class SearchCriteriaPresenter: SearchCriteriaPresentationLogic {
@@ -36,5 +37,9 @@ class SearchCriteriaPresenter: SearchCriteriaPresentationLogic {
     func presentResultsList(response: SearchCriteria.GetResults.Response) {
         let viewModel = SearchCriteria.GetResults.ViewModel(results: response.results)
         viewController?.navigateToListing(viewModel: viewModel)
+    }
+    
+    func fetchResult(term: String, entity: [String]) {
+        viewController?.fetchResult(term: term, entity: entity)
     }
 }
