@@ -13,6 +13,7 @@
 import UIKit
 
 protocol SearchCriteriaBusinessLogic {
+    func validate(input: String?, selectedMediaTypes: [(displayedName: String, name: String)])
     func fetchResult(request: SearchCriteria.GetResults.Request)
 }
 
@@ -32,6 +33,18 @@ class SearchCriteriaInteractor: SearchCriteriaBusinessLogic, SearchCriteriaDataS
     
     // MARK: fetch Result
     
+    func validate(input: String?, selectedMediaTypes: [(displayedName: String, name: String)]) {
+        if input?.trimmingCharacters(in: .whitespaces).isEmpty == true {
+            presenter.presentError(error: "Please enter term to search")
+        } else {
+            if  selectedMediaTypes.isEmpty == true {
+                presenter.presentError(error: "Please enter media type to search")
+            } else {
+                presenter.fetchResult(term: input ?? "", entity: selectedMediaTypes.map { $0.name })
+            }
+        }
+    }
+    
     func fetchResult(request: SearchCriteria.GetResults.Request) {
         worker.fetchResults(request: request, completionHandler: { (results, error) in
             if let error = error {
@@ -48,6 +61,5 @@ class SearchCriteriaInteractor: SearchCriteriaBusinessLogic, SearchCriteriaDataS
                 }
             }
         })
-        
     }
 }
