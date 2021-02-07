@@ -10,6 +10,7 @@ import XCTest
 
 var searchCriteriaResultExpectation = XCTestExpectation()
 var searchCriteriaErrorExpectation = XCTestExpectation()
+var searchCriteriaValidationExpectation = XCTestExpectation()
 
 class CleaniTunesTests: XCTestCase {
     var resultAPI: MockResultAPI!
@@ -44,14 +45,25 @@ class CleaniTunesTests: XCTestCase {
     func testSearchCriteriaResult() {
         initComponents(viewController: SearchCriteriaViewController())
         resultAPI.filename = "MockResults.JSON"
-        viewController.fetchResult(term: "", entity: [])
+        viewController.submit(input: "Adele", selectedMediaTypes: [("movie", "movie")])
         
-        wait(for: [searchCriteriaResultExpectation], timeout: 0.25)
+        wait(for: [searchCriteriaResultExpectation], timeout: 1)
         
         if let result = viewController.router?.dataStore?.results{
-            XCTAssertEqual(result[0].artistName, "Billy Simpson")
+            XCTAssertEqual(result[0].artistName, "Melissa Dowler")
             XCTAssertEqual(result[3].primaryGenreName, "Kids & Family")
         } else {
+            XCTFail()
+        }
+    }
+    func testValidation(){
+        initComponents(viewController: MockSearchCriteriaViewController())
+        if let vc = viewController as? MockSearchCriteriaViewController{
+            resultAPI.filename = "MockResults.JSON"
+            viewController.submit(input: "", selectedMediaTypes: [])
+            wait(for: [searchCriteriaValidationExpectation], timeout: 0.25)
+            XCTAssertNotNil(vc.error)
+        }else{
             XCTFail()
         }
     }

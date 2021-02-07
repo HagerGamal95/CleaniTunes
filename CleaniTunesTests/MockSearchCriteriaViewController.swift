@@ -14,5 +14,6 @@ class MockSearchCriteriaViewController: SearchCriteriaViewController {
     override func presentError(error: String) {
         self.error = error
         searchCriteriaErrorExpectation.fulfill()
+        searchCriteriaValidationExpectation.fulfill()
     }
 }
